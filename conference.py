@@ -722,10 +722,11 @@ class ConferenceApi(remote.Service):
             if sp != "Unknown":
                 sessions = Session.query(Session.speakers == sp)
                 sessNames = [sess.name for sess in sessions]
-                print sessNames
+                
                 if len(sessNames) > 1:
-                    feature_speaker = sp + ' : ' + ' , '.join(sessNames)
-                    memcache.set(MEMCACHE_SPEAKERS_KEY, feature_speaker)
+                    taskqueue.add(params={'speaker': data['speakers']}, url='/tasks/set_featured_speaker')
+                    # feature_speaker = sp + ' : ' + ' , '.join(sessNames)
+                    # memcache.set(MEMCACHE_SPEAKERS_KEY, feature_speaker)
 
         return self._copySessionToForm(s_key.get())
 
@@ -876,6 +877,20 @@ class ConferenceApi(remote.Service):
 
 # - - - - - - - - - - - - - - - - - - - - - - -
 # Task 4: Add a Task - Define endpoints
+
+    @staticmethod
+    def _setFeaturedSpeaker(speaker):
+        """Create feature speaker & assign to memcache."""
+        print speaker
+        # for sp in speakers:
+        sessions = Session.query(Session.speakers == speaker)
+        print "sessions: %s" % sessions
+        sessNames = [sess.name for sess in sessions]
+        feature_speaker = speaker + ' : ' + ' , '.join(sessNames)
+        memcache.set(MEMCACHE_SPEAKERS_KEY, feature_speaker)
+
+        return feature_speaker
+
     @endpoints.method(message_types.VoidMessage, StringMessage,
             path='getFeaturedSpeaker',
             http_method='GET', name='getFeaturedSpeaker')

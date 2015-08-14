@@ -3,7 +3,9 @@
 This project is part of the Udacity: Full Stack Web Developer Nanodegree.
 
 ##Task 1: Add Sessions to a Conference
-In Session model, speakers is implemented as list of strings. Multiple speakers for a session is allowed. 
+In Session model, speakers is implemented as list of strings. Multiple speakers for a session is allowed.
+
+In Session model, 'name', 'highlights', 'speakers', 'typeOfSession' are implemented as StringProperty because they are simple strings. 'duration' is implemented as IntegerProperty so that the length of session can be compared. 'date' and 'startTime' are implemented as DateProperty and TimeProperty respectively to reflect their usage. 
 
 ##Task 2: Add sessions to user wishlist
 Wishlist is implemented as part of Profile. It stores a list of session keys. 
