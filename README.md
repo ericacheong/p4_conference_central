@@ -2,6 +2,8 @@
 
 This project is part of the Udacity: Full Stack Web Developer Nanodegree.
 
+The Conference Organization App uses a cloud-based API server to support a provided conference organization application that exists on the web as well as a native Android application. The API supports the following functionality found within the app: user authentication, user profiles, conference information and various manners in which to query the data.
+
 ##Task 1: Add Sessions to a Conference
 In Session model, speakers is implemented as list of strings. Multiple speakers for a session is allowed.
 
